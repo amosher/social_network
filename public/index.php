@@ -1,10 +1,6 @@
 <?php
-	session_start();
+	include("../private/initialize.php");
 	// Commong PHP code used for configuring the database
-	$servername = "localhost";
-	$username_db = "root";
-	$password_db = "mysql";
-	$dbname = "realdb";
 	
 ?>
 <?php
@@ -53,7 +49,7 @@
 			// Insert the user into the db
 			try {
 			    // Create Connection
-			    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username_db, $password_db);
+			    $conn = new PDO("mysql:host=" . SERVERNAME . ";dbname=". DBNAME, USERNAME_DB, PASSWORD_DB);
 			    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 			    // Create the SQL command for inserting new list into the lists table and use :parameters if needed
@@ -109,7 +105,7 @@ if(!empty($_POST['login_btn'])){
 			// Insert the user into the db
 			try {
 			    // Create Connection
-			    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username_db, $password_db);
+			    $conn = new PDO("mysql:host=" . SERVERNAME . ";dbname=" . DBNAME, USERNAME_DB, PASSWORD_DB);
 			    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 			    // Create the SQL command for inserting new list into the lists table and use :parameters if needed
@@ -150,6 +146,13 @@ if(!empty($_POST['login_btn'])){
 			}
 		}
 }
+?>
+<?php
+	if(userLoggedIn()){
+		$location="dashboard.php";
+		redirect($location);
+	}
+
 ?>
 <!doctype html>
 <html>
